@@ -4,7 +4,7 @@ import pandas as pd
 import torch
 from sentence_transformers import SentenceTransformer, util
 
-HISTORICAL_CSV = r"C:\Users\hello\OneDrive\Desktop\customer_support_app\data\historical_tickets.csv"
+HISTORICAL_CSV = r"..\data\historical_tickets.csv"
 
 class AutoApprovalSystem:
     def __init__(self):
