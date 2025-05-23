@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        {% if tickets %}
+        <table>
+            <tr>
+                <th>Ticket ID</th>
+                <th>Customer ID</th>
+                <th>Issue</th>
+                <th>Suggested Resolution</th>
+                <th>Action</th>
+            </tr>
+            {% for ticket in tickets %}
+            <tr>
+                <td>{{ ticket['ticket_id'] }}</td>
+                <td>{{ ticket['customer_id'] }}</td>
+                <td>{{ ticket['issue_description'] }}</td>
+                <td>{{ ticket['suggested_resolution'] }}</td>
+                <td>
+                    <form action="{{ url_for('resolve_ticket', ticket_id=ticket['ticket_id']) }}" method="post">
+                        <!-- Pre-fill resolution field with suggestion -->
+                        <input type="text" name="resolution" 
+                               value="{{ ticket['suggested_resolution'] }}" 
+                               required>
+                        
+                        <!-- Add default resolution time -->
+                        <input type="number" name="resolution_time" 
+                               placeholder="Hours taken" 
+                               value="1"  <!-- Default to 1 hour -->
+                               min="0" 
+                               step="0.5" 
+                               required>
+                        
+                        <div class="action-buttons">
+                            <button type="submit" class="btn approve-btn">
+                                Approve Resolution
+                            </button>
+                            <button type="button" class="btn edit-btn"
+                                    onclick="enableEditing(this)">
+                                Edit Resolution
+                            </button>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>No open tickets to display.</p>
+        {% endif %}
+        <a href="{{ url_for('index') }}" class="btn">Home</a>
+    </div>
+
+    <script>
+        function enableEditing(button) {
+            const form = button.closest('form');
+            const resolutionInput = form.querySelector('input[name="resolution"]');
+            const timeInput = form.querySelector('input[name="resolution_time"]');
+            
+            resolutionInput.removeAttribute('readonly');
+            timeInput.removeAttribute('readonly');
+            button.style.display = 'none';
+            form.querySelector('.approve-btn').innerText = 'Save Changes';
+        }
+    </script>
+</body>
+</html>

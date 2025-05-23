@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Customer Dashboard</h1>
+        
+        <form method="POST">
+            <div class="form-group">
+                <label>Enter Customer ID to view tickets:</label>
+                <input type="text" name="customer_id" required>
+                <button type="submit" class="btn">Search</button>
+            </div>
+        </form>
+
+        {% if tickets %}
+        <h2>Your Tickets</h2>
+        <table>
+            <tr>
+                <th>Ticket ID</th>
+                <th>Date Created</th>
+                <th>Issue Description</th>
+                <th>Suggested Resolution</th>
+                <th>Status</th>
+                <th>Satisfaction</th>
+            </tr>
+            {% for ticket in tickets %}
+            <tr>
+                <td>{{ ticket.ticket_id }}</td>
+                <td>{{ ticket.date_created }}</td>
+                <td>{{ ticket.issue_description }}</td>
+                <td>
+                    {% if ticket.resolution %}
+                        <span class="resolved-text">{{ ticket.resolution }}</span>
+                    {% else %}
+                        <span class="suggestion-text">{{ ticket.suggested_resolution }}</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if ticket.resolution %}
+                        <span class="status-resolved">Resolved</span>
+                        ({{ ticket.resolution_time_hours }} hours)
+                    {% else %}
+                        <span class="status-pending">Pending</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if ticket.resolution %}
+                        {% if ticket.customer_satisfaction %}
+                            <div class="rating">
+                                {% for i in range(ticket.customer_satisfaction|int) %}
+                                ⭐
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <form method="POST" class="rating-form">
+                                <input type="hidden" name="ticket_id" value="{{ ticket.ticket_id }}">
+                                <select name="satisfaction" class="rating-select" required>
+                                    <option value="">Rate</option>
+                                    <option value="1">1 Star</option>
+                                    <option value="2">2 Stars</option>
+                                    <option value="3">3 Stars</option>
+                                    <option value="4">4 Stars</option>
+                                    <option value="5">5 Stars</option>
+                                </select>
+                                <button type="submit" class="btn rate-btn">Submit</button>
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+        
+        <a href="/" class="btn">Back to Home</a>
+    </div>
+</body>
+</html>

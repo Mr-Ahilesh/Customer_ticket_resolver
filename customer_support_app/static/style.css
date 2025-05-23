@@ -1,0 +1,114 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.container {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+input[type="text"], input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin: 4px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.approve-btn {
+    background-color: #28a745;
+    margin-top: 8px;
+}
+
+.edit-btn {
+    background-color: #ffc107;
+    margin-top: 8px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+.suggestion-text {
+    color: #666;
+    font-style: italic;
+}
+
+.resolved-text {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.status-resolved {
+    color: #28a745;
+}
+
+.status-pending {
+    color: #dc3545;
+}
+
+.rating {
+    color: #ffc107;
+    font-size: 1.2em;
+}
+
+.rating-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.rating-select {
+    padding: 4px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.rate-btn {
+    padding: 4px 8px;
+    background-color: #007bff;
+}

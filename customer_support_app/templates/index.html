@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Support</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Customer Support</h1>
+        <div class="options">
+            <a href="{{ url_for('submit_ticket') }}" class="btn">Submit Ticket</a>
+            <a href="{{ url_for('admin_login') }}" class="btn">Admin Login</a>
+            <a href="{{ url_for('customer_dashboard') }}" class="btn">Customer Dashboard</a>
+            <a href="{{ url_for('manage_thresholds') }}" class="btn">Agent simulated</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threshold Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .threshold-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .stats-table th {
+            background: #007bff;
+            color: white;
+        }
+        .form-control-threshold {
+            max-width: 150px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    {% extends "base.html" %}
+    {% block content %}
+    <div class="container mt-4">
+        <h2 class="mb-4">Auto-Approval Threshold Management</h2>
+        
+        <!-- Threshold Adjustment Form -->
+        <div class="threshold-card">
+            <h4 class="mb-4">Category Thresholds</h4>
+            <form method="POST" action="{{ url_for('manage_thresholds') }}">
+                <div class="row">
+                    {% for category, threshold in thresholds.items() %}
+                    <div class="col-md-3 mb-3">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">{{ category }}</span>
+                            </div>
+                            <input type="number" 
+                                   name="threshold_{{ category }}"
+                                   class="form-control form-control-threshold"
+                                   min="0" max="1" step="0.01"
+                                   value="{{ '%.2f'|format(threshold) }}"
+                                   required>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">
+                    Save Thresholds
+                </button>
+            </form>
+        </div>
+
+        <!-- Approval Statistics -->
+        <div class="mt-5">
+            <h4 class="mb-4">Approval Performance</h4>
+            {% if stats %}
+            <div class="table-responsive">
+                <table class="table table-bordered stats-table">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Decisions Made</th>
+                            <th>Auto-Approval Rate</th>
+                            <th>Avg Confidence</th>
+                            <th>Avg Threshold</th>ht
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stat in stats %}
+                        <tr>
+                            <td>{{ stat.category }}</td>
+                            <td>{{ stat.total_decisions }}</td>
+                            <td>{{ "%.1f"|format(stat.approval_rate * 100) }}%</td>
+                            <td>{{ "%.1f"|format(stat.avg_confidence * 100) }}%</td>
+                            <td>{{ "%.1f"|format(stat.avg_threshold * 100) }}%</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                No approval statistics available yet
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="mt-4">
+            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">
+                Back to Dashboard
+            </a>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>
