@@ -2,7 +2,7 @@ from sentence_transformers import SentenceTransformer, util
 import pandas as pd
 import os
 
-HISTORICAL_CSV = r'C:\Users\hello\OneDrive\Desktop\customer_support_app\data\historical_tickets.csv'
+HISTORICAL_CSV = r'..\data\historical_tickets.csv'
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
 
