@@ -14,8 +14,8 @@ auto_approver = AutoApprovalSystem()
 predictor = category_predictor()
 predictor.train()
 
-TICKETS_CSV = r"C:\Users\hello\OneDrive\Desktop\customer_support_app\data\tickets.csv"
-HISTORICAL_CSV = r'C:\Users\hello\OneDrive\Desktop\customer_support_app\data\historical_tickets.csv'
+TICKETS_CSV = r"..data\tickets.csv"
+HISTORICAL_CSV = r'..\data\historical_tickets.csv'
 
 CSV_HEADERS = [
     'ticket_id', 'customer_id', 'date_created', 'category', 
