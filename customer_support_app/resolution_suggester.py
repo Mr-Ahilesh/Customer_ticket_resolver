@@ -14,13 +14,13 @@ if os.path.exists(HISTORICAL_CSV):
     df = pd.read_csv(HISTORICAL_CSV)
     historical_issues = df['issue_description'].tolist()
     historical_resolutions = df['resolution'].tolist()
-    embeddings = model.encode(historical_issues, convert_to_tensor=True)  # SBERT-style tensor encoding
+    embeddings = model.encode(historical_issues, convert_to_tensor=True)  
 
 def get_suggested_resolution(new_issue):
     if not historical_issues or embeddings is None:
         return "No historical data available"
     
     new_embedding = model.encode(new_issue, convert_to_tensor=True)
-    cos_scores = util.pytorch_cos_sim(new_embedding, embeddings)[0]  # SBERT-style similarity
+    cos_scores = util.pytorch_cos_sim(new_embedding, embeddings)[0]  
     best_match_idx = cos_scores.argmax().item()
     return historical_resolutions[best_match_idx]
